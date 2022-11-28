@@ -22,4 +22,17 @@ class PolyTreeNode
         "#<Node:#{self.object_id} parent:#{self.parent} children:#{self.children}"
     end
 
+    def add_child(node)
+        @children << node unless @children.include?(node)
+        node.parent = self
+    end
+
+    def remove_child(node)
+
+        raise StandardError.new "Node is not a child" unless node.parent.children.include?(node)
+        node.parent = nil
+        
+    end
+
 end
+
