@@ -1,14 +1,16 @@
 require_relative "00_tree_node.rb"
 
 class KnightPathFinder
+        attr_reader :considered_pos, :starting_pos, :root_node, :move_tree
         def initialize(starting_pos)
                 @starting_pos = starting_pos
                 @root_node = PolyTreeNode.new(starting_pos)
-                @considered_pos = []
+                @considered_pos = [starting_pos]
+                @move_tree = build_move_tree
         end
 
         def build_move_tree
-
+                
         end
 
         def self.valid_moves(pos)
@@ -35,9 +37,11 @@ class KnightPathFinder
                 return possible_moves
         end
 
-        def new_move_pos(pos)
-                #calls valid move and filters out already considered positions
-
+        def new_move_pos(pos)   #calls valid move and filters out already considered positions
+                valid_moves = KnightPathFinder.valid_moves(pos)
+                new_valid_moves = valid_moves.select {|move| !@considered_pos.include?(move)}
+                @considered_pos += new_valid_moves
+                new_valid_moves
         end
 
 
@@ -47,5 +51,7 @@ class KnightPathFinder
         # end
 end
 
-kpf = KnightPathFinder.new([0,0])
-p KnightPathFinder.valid_moves([0,0])
+# kpf = KnightPathFinder.new([0,0])
+# p kpf.considered_pos
+# p kpf.new_move_pos([0,0])
+#  p kpf.considered_pos
