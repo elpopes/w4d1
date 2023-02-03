@@ -1,7 +1,7 @@
 class PolyTreeNode
-    def initialize(value)
+    def initialize(value, parent=nil)
         @value = value
-        @parent = nil
+        @parent = parent
         @children = Array.new
     end
 
